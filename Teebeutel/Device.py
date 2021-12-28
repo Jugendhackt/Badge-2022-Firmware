@@ -1,0 +1,40 @@
+
+#Pin definitions
+UART_TxD = 1
+UART_RxD = 3
+
+I2C_ID = 1
+I2C_SCL = 25
+I2C_SDA = 26
+
+SD_SPI_ID = 2
+SD_SCK = 18
+SD_CS = 5
+SD_MISO = 19
+SD_MOSI = 23
+SD_PATH = '/sd'
+
+OLED_SPI_ID = 1
+OLED_CS = 17
+OLED_SCK = 14
+OLED_MOSI = 13
+#OLED_MISO = 12
+OLED_DC = 21
+OLED_RES = 16
+
+TOUCH_A = None
+TOUCH_B = None
+
+ADC_BAT = 4
+
+IR_Rx = 5
+IR_Tx = 27
+
+WS2812_PIN = 32
+WS2812_NUM = 12
+
+BTN_UP = 34
+BTN_DOWN = 35
+BTN_LEFT = 15
+BTN_RIGHT = 22
+BTN_PUSH = 33
