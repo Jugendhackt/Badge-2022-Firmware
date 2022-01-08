@@ -1,6 +1,6 @@
 from micropython import const
 
-# Pin definitions)
+# Pin definitions
 UART_TxD = const(1)
 UART_RxD = const(3)
 
@@ -13,7 +13,7 @@ SD_SCK = const(18)
 SD_CS = const(5)
 SD_MISO = const(19)
 SD_MOSI = const(23)
-SD_PATH = const('/sd')
+SD_PATH = '/sd'
 
 OLED_SPI_ID = const(1)
 OLED_CS = const(17)
@@ -23,8 +23,8 @@ OLED_MOSI = const(13)
 OLED_DC = const(21)
 OLED_RES = const(16)
 
-TOUCH_A = const(None)
-TOUCH_B = const(None)
+TOUCH_A = None
+TOUCH_B = None
 
 ADC_BAT = const(4)
 
@@ -39,3 +39,7 @@ BTN_DOWN = const(35)
 BTN_LEFT = const(15)
 BTN_RIGHT = const(22)
 BTN_PUSH = const(33)
+
+PPSI262_ADDR = const(0x5B)
+SGP30_ADDR = const(0x58)
+LIS2DE12_ADDR = const(0x19)

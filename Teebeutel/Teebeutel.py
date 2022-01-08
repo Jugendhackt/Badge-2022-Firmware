@@ -5,6 +5,7 @@ from neopixel import NeoPixel
 
 from Teebeutel import Device
 from Teebeutel.SSD1351 import Display
+from Teebeutel.PPSI262 import PPSI262
 
 
 class DPad:
@@ -40,11 +41,12 @@ class DPad:
 
 class Teebeutel:
     def __init__(self):
-        #self.i2c = machine.I2C(Device.I2C_ID)
+        self.i2c = machine.I2C(Device.I2C_ID)
         self.sd_card = None
         self.display = Display(Device.OLED_SPI_ID, Device.OLED_CS, Device.OLED_DC, Device.OLED_RES)
         self.dpad = DPad(Device.BTN_UP, Device.BTN_DOWN, Device.BTN_LEFT, Device.BTN_RIGHT, Device.BTN_PUSH)
         self.neopixel = NeoPixel(machine.Pin(Device.WS2812_PIN, machine.Pin.OUT), Device.WS2812_NUM)
+        self.heartrate = PPSI262(self.i2c)
 
     def mount_SD(self) -> bool:
         try:
