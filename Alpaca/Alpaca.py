@@ -47,10 +47,28 @@ class Button:
         return self.button.value() == 1
 
 
+class Battery:
+    def __init__(self, adc: int):
+        self.battery = machine.ADC(machine.Pin(adc))
+        self.voltage_empty = 3.6
+        self.voltage_full = 4.0
+
+    def get_percentage(self) -> int:
+        # returns between 0 and 65535
+        voltage = self.get_voltage() - self.voltage_empty
+        return int((voltage / (self.voltage_full - self.voltage_empty)) * 100)
+
+    def get_voltage(self) -> float:
+        # returns between 0 and 1024, 1024 is one volt
+        raw = self.battery.read_u16()
+        return (raw / 65535) * 4
+
+
 class Alpaca:
     def __init__(self):
         self.i2c = machine.I2C(Device.I2C_ID, freq=Device.I2C_FREQ)
         self.sd_card = None
+        self.battery = Battery(Device.ADC_BAT)
         self.display = Display(Device.OLED_SPI_ID, Device.OLED_CS, Device.OLED_DC, Device.OLED_RES)
         self.dpad = DPad(Device.BTN_UP, Device.BTN_DOWN, Device.BTN_LEFT, Device.BTN_RIGHT, Device.BTN_PUSH)
         self.a = Button(Device.BTN_A)
