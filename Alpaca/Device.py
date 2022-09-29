@@ -7,6 +7,8 @@ UART_RxD = const(3)
 I2C_ID = const(1)
 I2C_SCL = const(25)
 I2C_SDA = const(26)
+I2C_FREQ = const(100000)
+
 
 SD_SPI_ID = const(2)
 SD_SCK = const(18)
@@ -32,7 +34,7 @@ IR_Rx = const(5)
 IR_Tx = const(27)
 
 WS2812_PIN = const(32)
-WS2812_NUM = const(12)
+WS2812_NUM = const(6)
 
 BTN_UP = const(34)
 BTN_DOWN = const(35)

@@ -3,9 +3,8 @@ import os
 
 from neopixel import NeoPixel
 
-from Teebeutel import Device
-from Teebeutel.SSD1351 import Display
-from Teebeutel.PPSI262 import PPSI262
+from Alpaca import Device
+from Alpaca.SSD1351 import Display
 
 
 class DPad:
@@ -39,14 +38,16 @@ class DPad:
         return self.push_signal.value() == 1
 
 
-class Teebeutel:
+class Alpaca:
     def __init__(self):
-        self.i2c = machine.I2C(Device.I2C_ID)
+        self.i2c = machine.I2C(Device.I2C_ID, freq=Device.I2C_FREQ)
         self.sd_card = None
         self.display = Display(Device.OLED_SPI_ID, Device.OLED_CS, Device.OLED_DC, Device.OLED_RES)
         self.dpad = DPad(Device.BTN_UP, Device.BTN_DOWN, Device.BTN_LEFT, Device.BTN_RIGHT, Device.BTN_PUSH)
         self.neopixel = NeoPixel(machine.Pin(Device.WS2812_PIN, machine.Pin.OUT), Device.WS2812_NUM)
-        self.heartrate = PPSI262(self.i2c)
+        #self.heartrate = PPSI262(self.i2c, Device.PPSI262_ADDR)
+        #self.gassensor = SGP30(self.i2c, Device.SGP30_ADDR)
+        #self.accelerometer = LIS2DE12(self.i2c, Device.LIS2DE12_ADDR)
 
     def mount_SD(self) -> bool:
         try:
