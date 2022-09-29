@@ -76,11 +76,17 @@ class Alpaca:
         self.neopixel = NeoPixel(machine.Pin(Device.WS2812_PIN, machine.Pin.OUT), Device.WS2812_NUM)
 
     def hard_reset(self):
+        self.__del__()
         machine.reset()
 
     def soft_reset(self):
         self.__del__()
         machine.soft_reset()
+
+    def render_text(self, s: str, row: int, color: int, center_x: bool = False, from_y_center: bool = False):
+        x_offset = 0 if not center_x else 64 - 8 * int(len(s)/2)
+        y_offset = 10 * row if not from_y_center else 64 - 10 * row
+        self.display.text(s, x_offset, y_offset, color)
 
     def __del__(self):
         if Device.SD_PATH:
