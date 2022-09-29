@@ -13,11 +13,11 @@ class DPad:
     def __init__(self, up: int, down: int, left: int, right: int, push: int):
         Pin = machine.Pin
         Signal = machine.Signal
-        self.up_signal = Signal(Pin(up, Pin.IN), invert=True)
-        self.down_signal = Signal(Pin(down, Pin.IN), invert=True)
-        self.left_signal = Signal(Pin(left, Pin.IN), invert=True)
-        self.right_signal = Signal(Pin(right, Pin.IN), invert=True)
-        self.push_signal = Signal(Pin(push, Pin.IN), invert=True)
+        self.up_signal = Signal(Pin(up, Pin.IN, pull=Pin.PULL_UP), invert=True)
+        self.down_signal = Signal(Pin(down, Pin.IN, pull=Pin.PULL_UP), invert=True)
+        self.left_signal = Signal(Pin(left, Pin.IN, pull=Pin.PULL_UP), invert=True)
+        self.right_signal = Signal(Pin(right, Pin.IN, pull=Pin.PULL_UP), invert=True)
+        self.push_signal = Signal(Pin(push, Pin.IN, pull=Pin.PULL_UP), invert=True)
 
     @property
     def up(self) -> bool:
@@ -42,7 +42,7 @@ class DPad:
 
 class Button:
     def __init__(self, pin: int):
-        self.button = machine.Signal(machine.Pin(pin, machine.Pin.IN), invert=True)
+        self.button = machine.Signal(machine.Pin(pin, machine.Pin.IN, pull=machine.Pin.PULL_UP), invert=True)
 
     @property
     def pressed(self) -> bool:
