@@ -15,7 +15,7 @@ SD_SCK = const(18)
 SD_CS = const(5)
 SD_MISO = const(19)
 SD_MOSI = const(23)
-SD_PATH = '/sd'
+SD_PATH = None
 
 OLED_SPI_ID = const(1)
 OLED_CS = const(17)
@@ -28,7 +28,8 @@ OLED_RES = const(16)
 TOUCH_A = None
 TOUCH_B = None
 
-ADC_BAT = const(4)
+ADC_BAT = const(36)
+ADC_AUX = const(39)
 
 IR_Rx = const(5)
 IR_Tx = const(27)
@@ -36,11 +37,15 @@ IR_Tx = const(27)
 WS2812_PIN = const(32)
 WS2812_NUM = const(6)
 
-BTN_UP = const(34)
-BTN_DOWN = const(35)
-BTN_LEFT = const(15)
-BTN_RIGHT = const(22)
-BTN_PUSH = const(33)
+BTN_UP = const(35)
+BTN_DOWN = const(33)
+BTN_LEFT = const(34)
+BTN_RIGHT = const(15)
+BTN_PUSH = const(12)
+# A and B are swapped in software here to have
+# the layout similar to the gameboy limit
+BTN_A = const(5)
+BTN_B = const(4)
 
 PPSI262_ADDR = const(0x5B)
 SGP30_ADDR = const(0x58)
