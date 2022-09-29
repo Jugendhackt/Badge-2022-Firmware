@@ -128,7 +128,9 @@ class Display(FrameBuffer):
         self.write_data([0x00])
 
         self.write_command(self.SSD1351_CMD_SETREMAP)
-        self.write_data([0x66])  # 65,536 Colors Mode, 180 degree rotated
+        #self.write_data([0b01100101])  #0x65 rotated to the right
+        #self.write_data([0b01100110])  #0x66 rotated 180deg (on its head)
+        self.write_data([0b01110100])  #0x74 is the right setting for this
 
         self.write_command(self.SSD1351_CMD_SETGPIO)
         self.write_data([0x00])
