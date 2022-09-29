@@ -1,3 +1,5 @@
+import binascii
+
 import machine
 import os
 
@@ -82,6 +84,11 @@ class Alpaca:
     def soft_reset(self):
         self.__del__()
         machine.soft_reset()
+
+    @property
+    def mac(self) -> str:
+        # see documentation, in this micropython port, this is the mac address
+        return binascii.hexlify(machine.unique_id()).decode("ascii")
 
     def render_text(self, s: str, row: int, color: int, center_x: bool = False, from_y_center: bool = False):
         x_offset = 0 if not center_x else 64 - 8 * int(len(s)/2)
