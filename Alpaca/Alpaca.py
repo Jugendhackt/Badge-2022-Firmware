@@ -38,12 +38,23 @@ class DPad:
         return self.push_signal.value() == 1
 
 
+class Button:
+    def __init__(self, pin: int):
+        self.button = machine.Signal(machine.Pin(pin, machine.Pin.IN), invert=True)
+
+    @property
+    def pressed(self) -> bool:
+        return self.button.value() == 1
+
+
 class Alpaca:
     def __init__(self):
         self.i2c = machine.I2C(Device.I2C_ID, freq=Device.I2C_FREQ)
         self.sd_card = None
         self.display = Display(Device.OLED_SPI_ID, Device.OLED_CS, Device.OLED_DC, Device.OLED_RES)
         self.dpad = DPad(Device.BTN_UP, Device.BTN_DOWN, Device.BTN_LEFT, Device.BTN_RIGHT, Device.BTN_PUSH)
+        self.a = Button(Device.BTN_A)
+        self.b = Button(Device.BTN_B)
         self.neopixel = NeoPixel(machine.Pin(Device.WS2812_PIN, machine.Pin.OUT), Device.WS2812_NUM)
 
     def hard_reset(self):
