@@ -45,26 +45,6 @@ class Alpaca:
         self.display = Display(Device.OLED_SPI_ID, Device.OLED_CS, Device.OLED_DC, Device.OLED_RES)
         self.dpad = DPad(Device.BTN_UP, Device.BTN_DOWN, Device.BTN_LEFT, Device.BTN_RIGHT, Device.BTN_PUSH)
         self.neopixel = NeoPixel(machine.Pin(Device.WS2812_PIN, machine.Pin.OUT), Device.WS2812_NUM)
-        #self.heartrate = PPSI262(self.i2c, Device.PPSI262_ADDR)
-        #self.gassensor = SGP30(self.i2c, Device.SGP30_ADDR)
-        #self.accelerometer = LIS2DE12(self.i2c, Device.LIS2DE12_ADDR)
-
-    def mount_SD(self) -> bool:
-        try:
-            self.sd_card = machine.SDCard(slot=Device.SD_SPI_ID)
-            os.mount(self.sd_card, Device.SD_PATH)
-            return True
-        except OSError:
-            return False
-
-    def umount_SD(self) -> bool:
-        try:
-            os.umount(Device.SD_PATH)
-            self.sd_card.deinit()
-            self.sd_card = None
-            return True
-        except OSError:
-            return False
 
     def hard_reset(self):
         machine.reset()
@@ -74,4 +54,5 @@ class Alpaca:
         machine.soft_reset()
 
     def __del__(self):
-        self.umount_SD()
+        if Device.SD_PATH:
+            self.umount_SD()
