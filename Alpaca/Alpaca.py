@@ -81,7 +81,7 @@ class Battery:
 
 
 class Alpaca:
-    def __init__(self):
+    def __init__(self, nick: str = ""):
         self.i2c = machine.I2C(Device.I2C_ID, freq=Device.I2C_FREQ)
         self.sd_card = None
         self.battery = Battery(Device.ADC_BAT)
@@ -90,6 +90,7 @@ class Alpaca:
         self.a = Button(Device.BTN_A)
         self.b = Button(Device.BTN_B)
         self.neopixel = NeoPixel(machine.Pin(Device.WS2812_PIN, machine.Pin.OUT), Device.WS2812_NUM)
+        self.nick = nick
 
     def hard_reset(self):
         self.__del__()
