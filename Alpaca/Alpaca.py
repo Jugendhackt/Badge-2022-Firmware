@@ -108,7 +108,9 @@ class Alpaca:
     def render_text(self, s: str, row: int, color: int, center_x: bool = False, from_y_center: bool = False):
         x_offset = 0 if not center_x else 64 - 8 * int(len(s)/2)
         y_offset = 10 * row if not from_y_center else 64 - 10 * row
-        self.display.text(s, x_offset, y_offset, color)
+        self.display.text(s, x_offset, y_offset, self.display.rgb_to_rgb565(
+            color & 0xf00, color & 0x0f0, color & 0x00f
+        ))
 
     def __del__(self):
         if Device.SD_PATH:
