@@ -53,24 +53,31 @@ class Button:
 class Battery:
     def __init__(self, adc: int):
         self.battery = machine.ADC(machine.Pin(adc))
-        self.voltage_empty = 3.6
-        self.voltage_full = 4.0
+        self.voltage_empty = 3.55
+        self.voltage_full = 4.2
+        self._r1 = 453000
+        self._r2 = 100000
+        self._divider = (self._r2 / (self._r1 + self._r2))
 
     def get_percentage(self) -> int:
-        voltage = self.get_voltage() - self.voltage_empty
-        return int((voltage / (self.voltage_full - self.voltage_empty)) * 100)
+        out = -1
+        voltage = self.get_voltage()
+        if voltage > 3.775:
+            out = 10.6 * voltage - 34.1
+        if voltage > 3.64:
+            out = 36.4 * voltage - 132
+        if voltage > 3.525:
+            out = 4 * voltage - 13.6
+        if voltage > 3.0:
+            out = 0.857 * voltage - 2.57
+        else:
+            out = 0.0
+        out = out if out < 1.0 else 1.0
+        out = out if out > 0 else 0.0
+        return out
 
     def get_voltage(self) -> float:
-        MAX_SAMPLES = 10
-        return (self.get_sampled_read(MAX_SAMPLES) / 65535) * 4
-
-    def get_sampled_read(self, n: int, interval: int = 10000) -> float:
-        accumulator = 0
-        for i in range(0, n):
-            # returns between 0 and 65535, 65535 is one volt
-            accumulator += self.battery.read_u16()
-            time.sleep_us(interval)
-        return accumulator / n
+        return (self.battery.read_uv() * ((self._r2 + self._r1) / self._r2)) / 1000000
 
 
 class Alpaca:
