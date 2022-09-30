@@ -3,6 +3,7 @@ import binascii
 import machine
 import os
 
+import time
 from neopixel import NeoPixel
 
 from Alpaca import Device
@@ -56,14 +57,20 @@ class Battery:
         self.voltage_full = 4.0
 
     def get_percentage(self) -> int:
-        # returns between 0 and 65535
         voltage = self.get_voltage() - self.voltage_empty
         return int((voltage / (self.voltage_full - self.voltage_empty)) * 100)
 
     def get_voltage(self) -> float:
-        # returns between 0 and 1024, 1024 is one volt
-        raw = self.battery.read_u16()
-        return (raw / 65535) * 4
+        MAX_SAMPLES = 10
+        return (self.get_sampled_read(MAX_SAMPLES) / 65535) * 4
+
+    def get_sampled_read(self, n: int, interval: int = 10000) -> float:
+        accumulator = 0
+        for i in range(0, n):
+            # returns between 0 and 65535, 65535 is one volt
+            accumulator += self.battery.read_u16()
+            time.sleep_us(interval)
+        return accumulator / n
 
 
 class Alpaca:
