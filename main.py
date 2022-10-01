@@ -27,5 +27,8 @@ while True:
         alpaca.render_text(f"A: {('YES' if alpaca.a.pressed else 'NO')}", 8, 0xfff)
         alpaca.render_text(f"B: {('YES' if alpaca.b.pressed else 'NO')}", 9, 0xfff)
 
+        alpaca.render_text("MAC Address", 10, 0xfff)
+        alpaca.render_text(f"{alpaca.mac}", 11, 0xfff)
+
         alpaca.display.show()
         time.sleep(0.05)
