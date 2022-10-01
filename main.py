@@ -84,14 +84,14 @@ while True:
         statusbar.render(alpaca.display)
 
         statusbar.tick(alpaca)
-
-        alpaca.render_text(f"UP: {('YES' if alpaca.dpad.up else 'NO')}", 3, 0xfff)
-        alpaca.render_text(f"DOWN: {('YES' if alpaca.dpad.down else 'NO')}", 4, 0xfff)
-        alpaca.render_text(f"LEFT: {('YES' if alpaca.dpad.left else 'NO')}", 5, 0xfff)
-        alpaca.render_text(f"RIGHT: {('YES' if alpaca.dpad.right else 'NO')}", 6, 0xfff)
-        alpaca.render_text(f"SELECT: {('YES' if alpaca.dpad.push else 'NO')}", 7, 0xfff)
-        alpaca.render_text(f"A: {('YES' if alpaca.a.pressed else 'NO')}", 8, 0xfff)
-        alpaca.render_text(f"B: {('YES' if alpaca.b.pressed else 'NO')}", 9, 0xfff)
+        alpaca.render_text(f"Vbat: {alpaca.battery.get_voltage()}V", 2, 0xfff)
+        alpaca.render_text(f"UP: {('YES' if alpaca.dpad.up else 'NO')}", 3, (0x0f0 if alpaca.dpad.up else 0x00f))
+        alpaca.render_text(f"DOWN: {('YES' if alpaca.dpad.down else 'NO')}", 4, (0x0f0 if alpaca.dpad.down else 0x00f))
+        alpaca.render_text(f"LEFT: {('YES' if alpaca.dpad.left else 'NO')}", 5, (0x0f0 if alpaca.dpad.left else 0x00f))
+        alpaca.render_text(f"RIGHT: {('YES' if alpaca.dpad.right else 'NO')}", 6, (0x0f0 if alpaca.dpad.right else 0x00f))
+        alpaca.render_text(f"SELECT: {('YES' if alpaca.dpad.push else 'NO')}", 7, (0x0f0 if alpaca.dpad.push else 0x00f))
+        alpaca.render_text(f"A: {('YES' if alpaca.a.pressed else 'NO')}", 8, (0x0f0 if alpaca.a.pressed else 0x00f))
+        alpaca.render_text(f"B: {('YES' if alpaca.b.pressed else 'NO')}", 9, (0x0f0 if alpaca.b.pressed else 0x00f))
 
         alpaca.render_text("MAC Address", 10, 0xfff)
         alpaca.render_text(f"{alpaca.mac}", 11, 0xfff)
